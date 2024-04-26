@@ -1,25 +1,28 @@
 import PropTypes from "prop-types";
+import styles from "./NavBar.module.css"
 
-function NavBar({ setPokemonIndex, pokemonIndex, pokemonList }) {
-
-    const handleClickPrecedent = () => {
-        setPokemonIndex(pokemonIndex - 1);
-    }
-
-    const handleClickSuivant = () => {
-        setPokemonIndex(pokemonIndex + 1);
-    }
+function NavBar({ setPokemonIndex, pokemonList }) {
 
     return (
-        <div>
-            {pokemonIndex > 0 ? <button onClick={handleClickPrecedent}>Précédent</button> : undefined}
-            {pokemonIndex < pokemonList.length - 1 ? <button onClick={handleClickSuivant}>Suivant</button> : undefined}
-        </div>
-    )
-}
+        <>
+          {pokemonList.map((pokemon, index) => (
+            <button className={styles.button}
+              key={pokemon.name}
+              onClick={() => {
+                setPokemonIndex(index);
+                if (pokemon.name === "Pikachu") {
+                  alert("pika pikachu !!!");
+                }
+              }}
+            >
+              {pokemon.name}
+            </button>
+          ))}
+        </>
+      );
+    }
 
 NavBar.propTypes = {
-    pokemonIndex: PropTypes.number.isRequired,
     setPokemonIndex: PropTypes.func.isRequired,
     pokemonList: PropTypes.arrayOf(
         PropTypes.shape({
